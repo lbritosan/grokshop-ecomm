@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GrokshopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GrokshopApplication.class, args);
+        SpringApplication.run(GrokshopApplication.class, args);
 	}
 
 }
