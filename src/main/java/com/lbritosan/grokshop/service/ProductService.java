@@ -69,6 +69,65 @@ public class ProductService {
         }
     }
 
+    @Transactional
+    public Product updateProduct(Long id, ProductDTO dto) {
+        try {
+            logger.info("Iniciando atualização do produto com ID: {}", id);
+            Product product = productRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+
+            product.setName(dto.getName());
+            product.setDescription(dto.getDescription());
+            product.setPrice(dto.getPrice());
+            product.setStock(dto.getStock());
+
+            if (dto.getCategoryIds() != null && !dto.getCategoryIds().isEmpty()) {
+                List<Long> categoryIdsCopy = new ArrayList<>(dto.getCategoryIds());
+                logger.info("Buscando categorias para atualização: {}", categoryIdsCopy);
+                Set<Category> categories = categoryIdsCopy.stream()
+                        .map(categoryId -> {
+                            logger.debug("Buscando categoria com ID: {}", categoryId);
+                            return categoryRepository.findById(categoryId)
+                                    .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + categoryId));
+                        })
+                        .collect(Collectors.toSet());
+
+                logger.info("Atribuindo novas categorias ao produto: {}", categories);
+                product.getCategories().clear();
+                product.getCategories().addAll(categories);
+            }
+
+            logger.info("Salvando produto atualizado: {}", product);
+            Product updatedProduct = productRepository.save(product);
+            logger.info("Produto atualizado com sucesso: {}", updatedProduct);
+            return updatedProduct;
+        } catch (ResourceNotFoundException e) {
+            logger.error("Recurso não encontrado", e);
+            throw e;
+        } catch (Exception e) {
+            logger.error("Erro ao atualizar produto: {}", e.getClass().getSimpleName(), e);
+            throw new RuntimeException("Erro ao atualizar produto: " + e.getClass().getSimpleName(), e);
+        }
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        try {
+            logger.info("Iniciando deleção do produto com ID: {}", id);
+            Product product = productRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+            logger.info("Deletando produto: {}", product);
+            productRepository.delete(product);
+            logger.info("Produto deletado com sucesso: {}", id);
+        } catch (ResourceNotFoundException e) {
+            logger.error("Produto não encontrado", e);
+            throw e;
+        } catch (Exception e) {
+            logger.error("Erro ao deletar produto: {}", e.getClass().getSimpleName(), e);
+            throw new RuntimeException("Erro ao deletar produto: " + e.getClass().getSimpleName(), e);
+        }
+    }
+
     public List<Product> findProductsByCategory(String categoryName) {
         try {
             logger.info("Buscando produtos por categoria: {}", categoryName);
