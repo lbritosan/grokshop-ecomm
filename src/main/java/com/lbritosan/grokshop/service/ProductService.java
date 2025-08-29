@@ -139,4 +139,9 @@ public class ProductService {
             throw new RuntimeException("Erro ao buscar produtos: " + e.getClass().getSimpleName(), e);
         }
     }
+
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+    }
 }
