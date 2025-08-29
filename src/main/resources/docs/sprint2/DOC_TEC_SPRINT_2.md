@@ -20,6 +20,13 @@
 - **Bean Validation:** Garante dados válidos.
 - **Testes Adiados:** Testes unitários movidos para o final do sprint para priorizar entrega de endpoints.
 
+## Funcionalidade Implementada:
+- Criação de produtos com associação a categorias (POST /api/products).
+- **Depuração:**
+    - Resolvido ConcurrentModificationException ajustando equals e hashCode nas entidades Product e Category para usar apenas id.
+    - Resolvido HttpMessageNotWritableException com @JsonBackReference na coleção products de Category para evitar serialização cíclica.
+- **Testes:** Endpoints testados com curl, validados no H2 console.
+
 ## Próximos Passos
 - Adicionar paginação e sorting (Sprint 3).
 - Implementar segurança com JWT (Sprint 4).

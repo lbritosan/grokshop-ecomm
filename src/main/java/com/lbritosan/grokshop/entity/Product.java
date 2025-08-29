@@ -1,17 +1,26 @@
 package com.lbritosan.grokshop.entity;
 
+import com.lbritosan.grokshop.entity.Category;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data // Lombok para getters, setters, etc.
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false)
@@ -25,7 +34,7 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),

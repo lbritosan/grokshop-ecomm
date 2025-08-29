@@ -18,6 +18,29 @@ Implementar a lógica de negócios para gerenciamento de produtos e categorias, 
     - `POST /api/products`: Cria um produto.
     - `GET /api/products/category/{categoryName}`: Lista produtos por categoria.
 
+## US-01: Criar Produto
+- **Descrição:** Permite criar um produto com nome, descrição, preço, estoque e categorias associadas.
+- **Endpoint:** POST /api/products
+- **Exemplo de Requisição:**
+  ```json
+  {
+    "name": "Laptop",
+    "description": "High-end laptop",
+    "price": 1499.99,
+    "stock": 20,
+    "categoryIds": [1]
+  }
+  ```
+- Resposta: 200 OK com o produto criado, incluindo ID e categorias.
+- Validação: Produto aparece no H2 console e no GET /api/products/category/Electronics.
+
+## US-02: Listar Produtos por Categoria
+- Descrição: Lista todos os produtos associados a uma categoria pelo nome.
+- Endpoint: GET /api/products/category/{categoryName}
+- Exemplo: GET /api/products/category/Electronics
+- Resposta: 200 OK com lista de produtos.
+
+
 ## Requisitos Não-Funcionais
 - **Performance:** Respostas < 200ms.
 - **Segurança:** Endpoints protegidos (a implementar no Sprint 4).
