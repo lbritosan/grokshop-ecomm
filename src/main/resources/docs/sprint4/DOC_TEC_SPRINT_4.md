@@ -32,7 +32,7 @@
     - Resolvido: Falha no `testCreateProduct_Success` (BigDecimal vs Double e `existsById` não chamado).
     - Resolvido: Falhas nos testes `testCreateProduct_CategoryNotFound`, `testUpdateProduct_ProductNotFound`, `testDeleteProduct_ProductNotFound` (mensagens de exceção ajustadas para "with id").
 - **Testes:**
-    - Executado `mvn test` com 8 testes passando.
+    - Executado `mvn test` com 8/8 testes passando.
     - Cobertura: 100% nas classes testadas.
 - **Status:** Concluído.
 
@@ -42,12 +42,12 @@
     - `ClassCastException` no `ProductServiceTest.java`.
     - `incompatible types` no `productDTO.setCategoryIds`.
     - Falha no `testCreateProduct_Success` (BigDecimal vs Double e `existsById` não chamado).
-    - Falhas nos testes `testCreateProduct_CategoryNotFound`, `testUpdateProduct_ProductNotFound`, `testDeleteProduct_ProductNotFound` (mensagens de exceção).
+    - Falhas nos testes `testCreateProduct_CategoryNotFound`, `testUpdateProduct_ProductNotFound`, `testDeleteProduct_ProductNotFound`.
 - **Impedimentos Pendentes:**
     - Aviso do Mockito (inline-mock-maker).
 - **Ações:**
-    - Compartilhar saídas de `mvn test -X`, `mvn clean install -U`, `mvn test -Djdk.instrument.traceUsage`.
-    - Configurar JaCoCo ou testes de integração.
+    - Compartilhar saídas de `mvn test -X`, `mvn clean install -U`, `mvn test -Djdk.instrument.traceUsage` para investigar o aviso do Mockito.
 
 ## Testes
 - Resultado: 8/8 testes passando com cobertura de 100%.
+- Pendente: Configuração do JaCoCo para relatórios detalhados (opcional, Sprint 5).

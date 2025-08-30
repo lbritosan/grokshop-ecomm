@@ -34,7 +34,7 @@
 - **Descrição:** Criar testes unitários para `ProductService`.
 - **Testes:**
     - Cobrir `createProduct`, `updateProduct`, `deleteProduct`, `findProductsByCategory`, `findById`.
-    - Executar `mvn test`.
+    - Executado `mvn test` com 8/8 testes passando.
 - **Impedimentos:**
     - Erro `NoSuchMethodError` no JUnit (resolvido).
     - Erro `ClassCastException` no `ProductServiceTest.java` (resolvido).
