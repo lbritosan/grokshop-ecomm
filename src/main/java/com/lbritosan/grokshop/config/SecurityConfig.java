@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -19,15 +20,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/h2-console/**", "/swagger-ui/**", "/api-docs/**").permitAll()
+                        .requestMatchers("/api/products/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(customizer -> customizer
-                        .authenticationEntryPoint((request, response, authException) -> response.sendError(401, "Unauthorized"))
-                )
-                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(httpBasic -> httpBasic.realmName("GrokShop"))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+
         return http.build();
     }
 
