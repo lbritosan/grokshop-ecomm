@@ -23,9 +23,11 @@ adicionados para garantir a qualidade do código.
   - **US-05:** Atualizar produto (PUT `/api/products/{id}`).
   - **US-11:** Deletar produto (DELETE `/api/products/{id}`).
   - Resolvido `ResourceNotFoundException` garantindo dados no banco.
-- **Sprint 4:**
+- **[Sprint 4](src/main/resources/docs/sprint4/SPRINT_4.md):**
   - **US-12:** Endpoint GET `/api/products/{id}` com autenticação HTTP Basic (usuário: `admin`, senha: `password`).
   - **US-13:** Testes unitários para `ProductService` com 100% de cobertura (8/8 testes passando).
+- **[Sprint 5](src/main/resources/docs/sprint5/SPRINT_5.md):**
+    - **US-14**
 
 ## Tecnologias Utilizadas
 
